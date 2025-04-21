@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -24,6 +25,15 @@ namespace UCGReportSystem.Views
             // プレビューウィンドウの作成
             _previewWindow = new ReportPreviewWindow(report);
 
+            // ウィンドウが読み込まれたときに印刷ダイアログを表示する
+            this.Loaded += PrintReportWindow_Loaded;
+        }
+
+        private void PrintReportWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // このイベントハンドラは一度だけ実行されるようにする
+            this.Loaded -= PrintReportWindow_Loaded;
+
             // 印刷ダイアログを表示
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
@@ -45,12 +55,21 @@ namespace UCGReportSystem.Views
 
                 if (reportPanel != null)
                 {
-                    // 印刷のための準備
+                    // 現在のサイズを保存
+                    double originalWidth = reportPanel.Width;
+
+                    // プリンターの印刷可能領域に合わせる
+                    reportPanel.Width = printDialog.PrintableAreaWidth;
+
+                    // 印刷前に再レイアウト
                     reportPanel.Measure(new Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight));
                     reportPanel.Arrange(new Rect(new Point(0, 0), reportPanel.DesiredSize));
 
                     // 印刷
                     printDialog.PrintVisual(reportPanel, "心エコーレポート");
+
+                    // 元のサイズに戻す
+                    reportPanel.Width = originalWidth;
                 }
 
                 Close();
@@ -101,5 +120,75 @@ namespace UCGReportSystem.Views
                 MessageBox.Show($"PDFエクスポートエラー: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+    }
+    public class ReportPaginator : DocumentPaginator
+    {
+        private FrameworkElement _element;
+        private Size _pageSize;
+        private Thickness _margin;
+        private int _pageCount;
+
+        public ReportPaginator(FrameworkElement element, Size pageSize, Thickness margin)
+        {
+            _element = element;
+            _pageSize = pageSize;
+            _margin = margin;
+
+            // Calculate how many pages we need
+            double totalHeight = element.DesiredSize.Height;
+            double printableHeight = pageSize.Height - margin.Top - margin.Bottom;
+            _pageCount = (int)Math.Ceiling(totalHeight / printableHeight);
+        }
+
+        public override DocumentPage GetPage(int pageNumber)
+        {
+            if (pageNumber >= _pageCount)
+                throw new ArgumentOutOfRangeException("pageNumber");
+
+            // Create a visual for this specific page
+            var printableHeight = _pageSize.Height - _margin.Top - _margin.Bottom;
+            var printableWidth = _pageSize.Width - _margin.Left - _margin.Right;
+
+            // Create a container for our content
+            FixedPage page = new FixedPage();
+            page.Width = _pageSize.Width;
+            page.Height = _pageSize.Height;
+
+            // Clone the element for this page
+            FrameworkElement pageElement = CloneElement(_element);
+            pageElement.Width = printableWidth;
+
+            // Position the content for this specific page
+            Canvas.SetLeft(pageElement, _margin.Left);
+            Canvas.SetTop(pageElement, _margin.Top - (pageNumber * printableHeight));
+
+            // Add content to the page
+            page.Children.Add(pageElement);
+            page.Measure(new Size(_pageSize.Width, _pageSize.Height));
+            page.Arrange(new Rect(0, 0, _pageSize.Width, _pageSize.Height));
+
+            return new DocumentPage(page);
+        }
+
+        // A simple method to clone the visual element
+        private FrameworkElement CloneElement(FrameworkElement original)
+        {
+            // For this implementation, we'll create a container and use a VisualBrush
+            // to "clone" the visual appearance of the original element
+            Border container = new Border();
+            container.Width = original.ActualWidth;
+            container.Height = original.ActualHeight;
+            container.Background = new VisualBrush(original);
+            return container;
+        }
+
+        public override bool IsPageCountValid => true;
+        public override int PageCount => _pageCount;
+        public override Size PageSize
+        {
+            get => _pageSize;
+            set => _pageSize = value;
+        }
+        public override IDocumentPaginatorSource Source => null;
     }
 }

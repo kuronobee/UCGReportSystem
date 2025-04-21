@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
 using Microsoft.EntityFrameworkCore;
 using UCGReportSystem.Data;
 using UCGReportSystem.Models;
@@ -130,6 +134,53 @@ namespace UCGReportSystem.Views
                 age--;
 
             return age;
+        }
+
+        public void ShowPrintPreview()
+        {
+            try
+            {
+                // Create a print dialog
+                PrintDialog printDialog = new PrintDialog();
+                printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+
+                // Create an XPS document for preview
+                string tempFile = System.IO.Path.GetTempFileName();
+                XpsDocument xpsDoc = new XpsDocument(tempFile, FileAccess.ReadWrite);
+
+                // Write the report to the XPS document
+                XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDoc);
+
+                // Set up paginator
+                var paginator = new ReportPaginator(ReportPanel,
+                    new Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight),
+                    new Thickness(50));
+
+                // Write to XPS
+                writer.Write(paginator);
+
+                // Create document viewer
+                DocumentViewer viewer = new DocumentViewer();
+                viewer.Document = xpsDoc.GetFixedDocumentSequence();
+
+                // Show preview in a new window
+                Window previewWindow = new Window
+                {
+                    Title = "印刷プレビュー",
+                    Content = viewer,
+                    Width = 800,
+                    Height = 800
+                };
+                previewWindow.ShowDialog();
+
+                // Clean up
+                xpsDoc.Close();
+                try { System.IO.File.Delete(tempFile); } catch { }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"プレビューエラー: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
