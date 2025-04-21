@@ -5,8 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UCGReportSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="心エコーレポートシステム" Height="600" Width="900">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0">
+            <MenuItem Header="ファイル">
+                <MenuItem Header="新規患者" Click="NewPatient_Click"/>
+                <MenuItem Header="新規レポート" Click="NewReport_Click"/>
+                <MenuItem Header="データベースバックアップ" Click="BackupDatabase_Click"/>
+                <Separator/>
+                <MenuItem Header="終了" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="レポート">
+                <MenuItem Header="レポート印刷" Click="PrintReport_Click"/>
+                <MenuItem Header="レポートプレビュー" Click="PreviewReport_Click"/>
+                <MenuItem Header="エクスポート" Click="ExportReport_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="患者リスト">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="検索:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="SearchPatientTextBox" Width="200" Margin="0,0,5,0"/>
+                        <Button Content="検索" Click="SearchPatient_Click" Width="80"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="PatientsDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
+                              SelectionMode="Single" IsReadOnly="True" 
+                              MouseDoubleClick="PatientsDataGrid_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding PatientId}" Width="80"/>
+                            <DataGridTextColumn Header="氏名" Binding="{Binding Name}" Width="150"/>
+                            <DataGridTextColumn Header="生年月日" Binding="{Binding DateOfBirth, StringFormat=yyyy/MM/dd}" Width="100"/>
+                            <DataGridTextColumn Header="性別" Binding="{Binding Gender}" Width="50"/>
+                            <DataGridTextColumn Header="電話番号" Binding="{Binding PhoneNumber}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="レポートリスト">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="検索:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBox x:Name="SearchReportTextBox" Width="200" Margin="0,0,5,0"/>
+                        <Button Content="検索" Click="SearchReport_Click" Width="80"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="ReportsDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
+                              SelectionMode="Single" IsReadOnly="True" 
+                              MouseDoubleClick="ReportsDataGrid_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="患者ID" Binding="{Binding Patient.PatientId}" Width="80"/>
+                            <DataGridTextColumn Header="氏名" Binding="{Binding Patient.Name}" Width="150"/>
+                            <DataGridTextColumn Header="検査日" Binding="{Binding ExamDate, StringFormat=yyyy/MM/dd}" Width="100"/>
+                            <DataGridTextColumn Header="担当医" Binding="{Binding Physician}" Width="100"/>
+                            <DataGridTextColumn Header="LVEF" Binding="{Binding LVEF}" Width="60"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

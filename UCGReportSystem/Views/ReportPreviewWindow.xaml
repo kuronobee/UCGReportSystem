@@ -1,0 +1,417 @@
+﻿<Window x:Class="UCGReportSystem.Views.ReportPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UCGReportSystem.Views"
+        mc:Ignorable="d"
+        Title="心臓超音波検査報告書" Height="950" Width="800">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel x:Name="ReportPanel" Margin="20">
+                <TextBlock Text="心臓超音波検査報告書" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                <!-- 患者情報 -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="PatientIdText"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="氏名:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" x:Name="PatientNameText"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="性別:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="5" x:Name="GenderText"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="生年月日:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="BirthDateText"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="年齢:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" x:Name="AgeText"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="4" Text="検査日:" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="5" x:Name="ExamDateText"/>
+                </Grid>
+
+                <!-- 検査依頼 -->
+                <Border BorderBrush="Black" BorderThickness="1" Padding="10" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="検査依頼:" FontWeight="Bold"/>
+                        <Border Grid.Row="0" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" MinHeight="50">
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- 心臓サイズ・構造測定値 -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="AoD:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="AoDText"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="LAD:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="LADText"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="LVIDd:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="LVIDdText"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="LVIDs:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="LVIDsText"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="IVSTd:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="IVSTdText"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="LVPWTd:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1" x:Name="LVPWTdText"/>
+                            <TextBlock Grid.Row="5" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="IVD:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" x:Name="IVDText"/>
+                            <TextBlock Grid.Row="6" Grid.Column="2" Text="mm"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="LVH:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" x:Name="LVHText"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,25,0,0" Text="ASH:" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" Margin="0,25,0,0" x:Name="ASHText"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="[EF]" FontWeight="Bold" 
+                                           HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Teichholtz:"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="TeichholtzEFText"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="%"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Pombo:"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="PomboEFText"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="%"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Simpson:"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="SimpsonEFText"/>
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="%"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="FS:"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="FSText"/>
+                                <TextBlock Grid.Row="4" Grid.Column="2" Text="%"/>
+                            </Grid>
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="0,20,0,0">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="[MV flow]" FontWeight="Bold" 
+                                           HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="E:"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="EText"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="cm/s"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="A:"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="AText"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="cm/s"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,30,0,0" Text="E/A:"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,30,0,0" x:Name="E_AText"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,30,0,0" Text="DecT:"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,30,0,0" x:Name="DecTText"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Margin="0,30,0,0" Text="ms"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="E/e':"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="E_EprimeText"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 弁膜評価 -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="0,0,5,0">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="[Valves] MV" FontWeight="Bold" 
+                                       HorizontalAlignment="Left" Margin="0,0,0,10"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="MVP:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="MVPText"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="MV calc:"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="MVCalcText"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="MS:"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="MSText"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="150,0,0,0" Text="Doomine:"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Margin="150,0,0,0" x:Name="DoomineText"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="MVA by PHT:"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="MVAByPHTText"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,25,0,0" Text="MVA by Plan:"/>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,25,0,0" Orientation="Horizontal">
+                                <TextBlock x:Name="MVAByPlanimetryText"/>
+                                <TextBlock Text=" cm²" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5,0,0,0">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="AV" FontWeight="Bold" 
+                                       HorizontalAlignment="Left" Margin="0,0,0,10"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="AV calc:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="AVCalcText"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="AS:"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ASText"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="150,0,0,0" Text="PVE:"/>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal">
+                                <TextBlock x:Name="PVEText"/>
+                                <TextBlock Text=" m/s" Margin="5,0,0,0"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="AVA by Plan:"/>
+                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock x:Name="AVAByPlanimetryText"/>
+                                <TextBlock Text=" cm²" Margin="5,0,0,0"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="AVA by 連続:"/>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock x:Name="AVAByEquationText"/>
+                                <TextBlock Text=" cm²" Margin="5,0,0,0"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="meanPG:"/>
+                            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock x:Name="MeanPGText"/>
+                                <TextBlock Text=" mmHg" Margin="5,0,0,0"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Margin="150,0,0,0" Text="maxPG:"/>
+                            <StackPanel Grid.Row="5" Grid.Column="1" Margin="150,0,0,0" Orientation="Horizontal">
+                                <TextBlock x:Name="MaxPGText"/>
+                                <TextBlock Text=" mmHg" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Doppler評価 -->
+                <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,20">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="[Doppler]" FontWeight="Bold" 
+                                   HorizontalAlignment="Left" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="MR:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="MRText"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="PHT:"/>
+                        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
+                            <TextBlock x:Name="PHTText"/>
+                            <TextBlock Text=" ms" Margin="5,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="AR:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ARText"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="PG:"/>
+                        <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
+                            <TextBlock x:Name="PGText"/>
+                            <TextBlock Text=" mmHg" Margin="5,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="TR:"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" x:Name="TRText"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="PR:"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" x:Name="PRText"/>
+                    </Grid>
+                </Border>
+
+                <!-- 壁運動異常・その他所見 -->
+                <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,20">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="[Wall motion]"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,10" Text="asynergy:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="AsynergyText"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="[Others]"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,0,10" Text="PE:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="PEText"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="shunt:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ShuntText"/>
+                    </Grid>
+                </Border>
+
+                <!-- 所見・診断 -->
+                <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,20">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="診断, comment:" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="DiagnosisText" TextWrapping="Wrap"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="FindingsText" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- 署名欄 -->
+                <Grid Margin="0,40,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="技師:" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="TechnicianText" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="医師:" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="PhysicianText" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
